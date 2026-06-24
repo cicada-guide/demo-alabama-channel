@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Alabama Channel — Newsroom Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* cicada.guide brand */
+    --primary: #2e97f2;
+    --primary-dark: #0a6dba;
+    --primary-soft: #E3F2FD;
+    --success: #06D6A0;
+    --success-dark: #04846a;
+    --success-soft: #DFF7EE;
+    --warning: #FFD166;
+    --warning-dark: #8A6D0A;
+    --warning-soft: #FFF6DC;
+    --danger: #EF476F;
+    --danger-dark: #B83056;
+    --danger-soft: #FCE1E9;
+    --rail: #1D2429;
+    --text: #1D2429;
+    --muted: #5B6770;
+    --border: #E2E5E8;
+    --field: #F0F1F2;
+    --surface: #FFFFFF;
+    --bg: #FAFAFA;
+    --inverse: #FFFFFF;
+    --sans: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: "IBM Plex Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
+  .app { display: grid; grid-template-columns: 230px 1fr; min-height: 100vh; }
+
+  .rail { background: var(--rail); color: var(--inverse); padding: 24px 0; display: flex; flex-direction: column; }
+  .rail-brand { padding: 0 22px 22px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .rail-brand-title { font-weight: 700; font-size: 15px; letter-spacing: -0.1px; }
+  .rail-brand-sub { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.6); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .rail-section { padding: 18px 16px 8px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,0.45); font-weight: 600; }
+  .rail-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; margin: 1px 10px; border-radius: 8px; font-weight: 600; font-size: 13px; color: rgba(255,255,255,0.85); cursor: pointer; }
+  .rail-item:hover { background: rgba(255,255,255,0.05); }
+  .rail-item.active { background: rgba(46,151,242,0.16); color: var(--inverse); }
+  .rail-item.active::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
+  .rail-item:not(.active)::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .rail-footer { margin-top: auto; padding: 16px 22px; border-top: 1px solid rgba(255,255,255,0.08); font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.42); line-height: 1.6; font-weight: 500; }
+
+  .main { padding: 28px 32px 56px; max-width: 1120px; }
+  .demo-banner { display: flex; align-items: center; justify-content: center; gap: 12px; background: var(--warning-soft); color: var(--warning-dark); padding: 9px 14px; border-radius: 8px; margin-bottom: 18px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.5px; font-weight: 600; border: 1px solid var(--warning); }
+  .demo-banner .badge { background: var(--warning); color: var(--rail); padding: 3px 9px; border-radius: 999px; font-weight: 800; }
+
+  .topbar { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 22px; gap: 16px; }
+  .topbar h1 { font-size: 26px; font-weight: 700; margin: 0; line-height: 1.15; letter-spacing: -0.4px; }
+  .topbar .meta { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 5px; font-weight: 500; }
+
+  .view-tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .view-tab { padding: 12px 16px; font-weight: 600; font-size: 13px; color: var(--muted); cursor: pointer; background: transparent; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .view-tab:hover { color: var(--text); }
+  .view-tab.active { color: var(--primary-dark); border-bottom-color: var(--primary); }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 2px rgba(29,36,41,0.04); }
+  .panel-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
+  .panel-title { font-size: 18px; font-weight: 700; margin: 0; letter-spacing: -0.2px; }
+  .panel-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .search-row { display: flex; gap: 8px; margin-bottom: 14px; }
+  .search-input { flex: 1; background: var(--field); border: 1px solid var(--border); border-radius: 10px; padding: 13px 16px; font-family: var(--sans); font-size: 14px; color: var(--text); font-weight: 500; }
+  .search-input:focus { outline: 2px solid var(--primary); outline-offset: -1px; background: var(--surface); }
+  .btn-primary { background: var(--primary); color: var(--inverse); border: 0; border-radius: 10px; padding: 0 22px; height: 48px; font-weight: 700; font-size: 13px; cursor: pointer; letter-spacing: 0.2px; }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 0 14px; height: 38px; font-weight: 600; font-size: 12px; cursor: pointer; }
+  .btn-secondary:hover { background: var(--field); }
+  .filter-row { display: flex; gap: 7px; flex-wrap: wrap; }
+  .filter-chip { background: var(--field); border: 1px solid transparent; border-radius: 999px; padding: 6px 13px; font-size: 11.5px; font-weight: 600; color: var(--text); cursor: pointer; }
+  .filter-chip:hover { background: var(--border); }
+  .filter-chip.active { background: var(--primary-soft); color: var(--primary-dark); border-color: var(--primary); }
+
+  .ai-panel { background: linear-gradient(135deg, var(--primary-soft) 0%, #F5FAFE 100%); border: 1px solid var(--primary); border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }
+  .ai-label { font-family: var(--mono); font-size: 10px; font-weight: 700; color: var(--primary-dark); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .ai-label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+  .ai-body { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .ai-meta { margin-top: 10px; font-size: 11px; color: var(--muted); font-family: var(--mono); }
+  .ai-link { color: var(--primary-dark); cursor: pointer; font-weight: 700; }
+
+  .results-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 10px 0; border-bottom: 1px solid var(--border); margin-bottom: 8px; font-weight: 500; }
+  .result { padding: 16px; border-bottom: 1px solid var(--border); cursor: pointer; position: relative; border-radius: 10px; }
+  .result:hover { background: var(--field); }
+  .result:last-child { border-bottom: 0; }
+  .result-actions { position: absolute; top: 14px; right: 14px; display: none; gap: 6px; }
+  .result:hover .result-actions { display: flex; }
+  .result-actions .btn-secondary, .result-actions .btn-primary { height: 32px; padding: 0 14px; font-size: 11.5px; }
+  .result-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .result-title { font-weight: 700; font-size: 14px; }
+  .result-date { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .result-source { font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-bottom: 8px; }
+  .result-excerpt { font-size: 14px; color: var(--text); line-height: 1.55; }
+  .result-excerpt mark { background: var(--warning-soft); color: var(--warning-dark); padding: 1px 5px; border-radius: 4px; font-weight: 600; }
+  .result-meta { display: flex; gap: 14px; margin-top: 9px; font-size: 11.5px; color: var(--muted); align-items: center; }
+  .speaker { font-weight: 700; color: var(--text); }
+  .bill-chip { display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-dark); font-family: var(--mono); font-size: 10.5px; font-weight: 700; margin-right: 4px; }
+  .conf-mono { font-family: var(--mono); font-size: 11px; font-weight: 600; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+  .stat-card { background: var(--field); border-radius: 12px; padding: 14px 16px; }
+  .stat-card .lbl { font-family: var(--mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
+  .stat-card .val { font-family: var(--sans); font-size: 26px; font-weight: 800; color: var(--text); margin-top: 4px; letter-spacing: -0.5px; }
+  .stat-card .sub { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .stat-card.good .val { color: var(--success-dark); }
+  .stat-card.good { background: var(--success-soft); }
+
+  .cons-title { font-weight: 700; font-size: 14px; margin: 6px 0 12px; }
+  .cons-row { display: grid; grid-template-columns: 220px 1fr 60px; gap: 12px 14px; align-items: center; font-size: 13px; padding: 7px 0; }
+  .cons-bar { background: var(--field); border-radius: 999px; height: 12px; position: relative; overflow: hidden; }
+  .cons-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; }
+  .cons-fill.good { background: var(--success); }
+  .cons-fill.warn { background: var(--warning); }
+  .cons-fill.failed { background: var(--danger); }
+  .cons-num { font-family: var(--mono); font-size: 12px; font-weight: 700; text-align: right; }
+  .cons-num.good { color: var(--success-dark); }
+  .cons-num.warn { color: var(--warning-dark); }
+  .cons-num.failed { color: var(--danger-dark); }
+
+  .transcript-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+  .meta-cell .meta-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+  .meta-cell .meta-val { font-size: 13px; font-weight: 700; color: var(--text); }
+  .seg { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 12px 8px; border-radius: 10px; }
+  .seg:hover { background: var(--field); }
+  .seg-gutter { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; }
+  .speaker-chip { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; font-family: var(--mono); font-size: 10.5px; font-weight: 700; }
+  .speaker-enrolled { background: var(--success); color: var(--rail); }
+  .speaker-matched { background: var(--primary-soft); color: var(--primary-dark); }
+  .speaker-needs { background: var(--warning); color: var(--rail); }
+  .speaker-fallback { background: var(--field); color: var(--muted); }
+  .ts { font-family: var(--mono); font-size: 11px; color: var(--muted); font-weight: 500; }
+  .utterance { font-size: 14.5px; line-height: 1.6; color: var(--text); }
+  .utterance mark { background: var(--warning-soft); color: var(--warning-dark); padding: 1px 5px; border-radius: 4px; font-weight: 600; }
+  .start-marker { display: flex; align-items: center; gap: 14px; margin: 26px 0; }
+  .start-marker .line { flex: 1; height: 2px; background: var(--primary-soft); }
+  .start-marker .label { font-size: 12px; font-weight: 700; color: var(--primary-dark); background: var(--primary-soft); padding: 4px 12px; border-radius: 999px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .note { font-size: 12.5px; color: var(--muted); margin-top: 18px; line-height: 1.6; padding-top: 16px; border-top: 1px solid var(--border); }
+  .note b { color: var(--text); font-weight: 700; }
+  .note .mono { font-family: var(--mono); }
+
+  .view { display: none; }
+  .view.active { display: block; }
+
+  .chip { display: inline-flex; align-items: center; height: 26px; padding: 0 11px; border-radius: 999px; font-family: var(--mono); font-size: 11px; font-weight: 700; }
+  .chip-review { background: var(--warning-soft); color: var(--warning-dark); }
+  .phase-tag { display: inline-flex; align-items: center; gap: 5px; font-family: var(--sans); font-size: 10.5px; font-weight: 600; padding: 1px 9px 1px 7px; border-radius: 999px; vertical-align: 2px; }
+  .phase-tag::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; }
+  .phase-today { background: transparent; color: var(--success-dark); border: 1px solid var(--success); }
+  .phase-today::before { background: var(--success); }
+  .phase-coming { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  .phase-coming::before { background: var(--warning); }
+  .phase-mixed { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  .phase-mixed::before { background: var(--primary); }
+  .verify-chip { display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; background: var(--warning-soft); color: var(--warning-dark); font-family: var(--mono); font-size: 10.5px; font-weight: 700; margin-right: 4px; border: 1px solid var(--warning); }
+  /* Click-through gate */
+  #gate { position: fixed; inset: 0; background: rgba(29,36,41,0.93); display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 24px; }
+  #gate .card { background: var(--surface); border-radius: 14px; max-width: 580px; padding: 30px 34px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+  #gate h2 { margin: 0 0 10px; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; color: var(--text); }
+  #gate .ribbon { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 800; background: var(--warning); color: var(--rail); padding: 4px 11px; border-radius: 999px; letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 14px; }
+  #gate p { font-size: 14px; line-height: 1.6; color: var(--text); margin: 8px 0; }
+  #gate p b { font-weight: 700; color: var(--primary-dark); }
+  #gate ul { padding-left: 20px; margin: 8px 0; font-size: 13.5px; line-height: 1.6; color: var(--text); }
+  #gate ul li { margin-bottom: 4px; }
+  #gate .actions { margin-top: 22px; display: flex; gap: 10px; justify-content: flex-end; }
+  #gate .btn-primary { font-family: var(--sans); height: 44px; padding: 0 22px; }
+
+</style>
+</head>
+<body>
+<div id="gate" role="dialog" aria-labelledby="gate-title" aria-modal="true">
+  <div class="card">
+    <span class="ribbon">Newsroom preview</span>
+    <h2 id="gate-title">Before you begin</h2>
+    <p>This is a <b>pre-launch demonstration</b> of The Alabama Channel — a project of the League of Women Voters of Alabama Education Fund, built in partnership with cicada.guide — for newsroom partners.</p>
+    <ul>
+      <li><b>Every speaker name is a placeholder</b> (Sen. A, Chair A, Rep. B) &mdash; not real Alabama officials.</li>
+      <li><b>All quotes and consistency scores are synthetic</b> and illustrative only.</li>
+      <li>Some features shown (live capture, AI search, member analytics) are still in development.</li>
+      <li>Please don\'t screenshot or share these screens without this notice attached.</li>
+    </ul>
+    <p>By continuing, you acknowledge that any quote drawn from a future production system must be <b>independently verified against the source video</b> before publication.</p>
+    <div class="actions">
+      <button class="btn-primary" id="gate-continue">I understand &mdash; continue</button>
+    </div>
+  </div>
+</div>
+<div class="app">
+
+  <aside class="rail">
+    <div class="rail-brand">
+      <div class="rail-brand-title">The Alabama Channel</div>
+      <div class="rail-brand-sub">cicada.guide</div>
+    </div>
+    <div class="rail-section">Reporting tools</div>
+    <div class="rail-item active" data-view="search"><span>Ask the corpus</span></div>
+    <div class="rail-item" data-view="transcript"><span>Read a meeting</span></div>
+    <div class="rail-item" data-view="member"><span>Member tracking</span></div>
+    <div class="rail-section">Browse</div>
+    <div class="rail-item" data-view="search"><span>Bills &amp; resolutions</span></div>
+    <div class="rail-item" data-view="search"><span>Bodies &amp; sessions</span></div>
+    <div class="rail-item" data-view="search"><span>Elected officials</span></div>
+    <div class="rail-footer">
+      <div>Free to the public.</div>
+      <div style="margin-top: 6px;">LWV of Alabama Education Fund &times; cicada.guide</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="demo-banner"><span class="badge">DEMO</span><span>Demo mode &mdash; speaker names are placeholders and all quotes are illustrative. Some features are still being built.</span></div>
+
+    <div class="topbar">
+      <div>
+        <h1 id="page-title">Ask the corpus</h1>
+        <div class="meta">1,230+ meetings indexed &middot; ~600 fully processed today &middot; AI search, member tracking &amp; one-click citations coming through 2027</div>
+      </div>
+    </div>
+
+    <div class="view-tabs">
+      <div class="view-tab active" data-tab="search">Ask</div>
+      <div class="view-tab" data-tab="transcript">Read a meeting</div>
+      <div class="view-tab" data-tab="member">Member tracking</div>
+    </div>
+
+    <section class="view active" data-view="search">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Ask a question across Alabama legislative meetings <span class="phase-tag phase-coming">Coming, Phase 2</span></div>
+            <div class="panel-sub">Plain-English query. Get back a summary plus the exact speaker-attributed clips.</div>
+          </div>
+        </div>
+        <div class="search-row">
+          <input class="search-input" value="What did the bill sponsor say about HB 391 this session?">
+          <button class="btn-primary">Ask</button>
+        </div>
+        <div class="filter-row">
+          <span class="filter-chip active">All bodies</span>
+          <span class="filter-chip">House</span>
+          <span class="filter-chip">Senate</span>
+          <span class="filter-chip">Joint</span>
+          <span class="filter-chip">Board of Education</span>
+          <span class="filter-chip">Public Service Commission</span>
+          <span class="filter-chip" title="Alabama Environmental Management Commission">EMC</span>
+          <span class="filter-chip">2024-2026</span>
+          <span class="filter-chip" style="background: var(--primary-soft); color: var(--primary-dark); border: 1px solid var(--primary);">Bill: HB 391</span>
+        </div>
+      </div>
+
+      <div class="ai-panel">
+        <div class="ai-label">AI summary &middot; synthesized</div>
+        <div class="ai-body">Sen. A spoke on HB 391 in <b>4 meetings</b> this session — twice in committee, twice on the floor. His central question is the eligibility threshold under section 4(b): whether census blocks reported served by any provider in the last FCC cycle should be excluded from the grant pool. On the floor he framed it as a rural-access concern; in committee he focused on the cap, supporting the Senate companion's move from $40M to $55M and a sunset on the middle-mile carve-out.</div>
+        <div class="ai-meta">Generated from 9 speaker-attributed segments &middot; confidence avg 0.94 &middot; <span class="ai-link">View all sources &rarr;</span></div>
+      </div>
+
+      <div class="panel">
+        <div class="results-meta">4 of 9 segments shown &middot; sorted by relevance</div>
+
+        <div class="result" onclick="switchTo('transcript')">
+          <div class="result-actions">
+            <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
+            <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');" style="height: 32px; padding: 0 14px;">Open clip</button>
+          </div>
+          <div class="result-head">
+            <div class="result-title">Senate Fiscal Responsibility &amp; Economic Development</div>
+            <div class="result-date">2025-11-04 &middot; 47:21</div>
+          </div>
+          <div class="result-source">Senate Cmte hearing &middot; transcript @ 00:18:46</div>
+          <div class="result-excerpt">"The Senate companion to <mark>HB 391</mark> moves the cap from $40M to $55M and adds a sunset on the <mark>broadband</mark> middle-mile carve-out."</div>
+          <div class="result-meta">
+            <span class="speaker">Sen. A</span>
+            <span><span class="bill-chip">HB 391</span> auto-extracted</span>
+            <span>Confidence <span class="conf-mono">0.96</span></span>
+          </div>
+        </div>
+
+        <div class="result">
+          <div class="result-actions">
+            <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
+            <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');" style="height: 32px; padding: 0 14px;">Open clip</button>
+          </div>
+          <div class="result-head">
+            <div class="result-title">House Children &amp; Senior Advocacy Committee</div>
+            <div class="result-date">2024-02-28 &middot; 1:03:42</div>
+          </div>
+          <div class="result-source">House Cmte hearing &middot; transcript @ 00:24:18</div>
+          <div class="result-excerpt">"The rural <mark>broadband</mark> appropriation in <mark>HB 391</mark> would only reach districts with verified service gaps. That's the question I keep coming back to - who actually qualifies under section 4(b)?"</div>
+          <div class="result-meta">
+            <span class="speaker">Sen. A</span>
+            <span><span class="bill-chip">HB 391</span> auto-extracted</span>
+            <span>Confidence <span class="conf-mono">0.78</span></span>
+            <span class="verify-chip">Verify against source</span>
+          </div>
+        </div>
+
+        <div class="result">
+          <div class="result-actions">
+            <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
+            <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');" style="height: 32px; padding: 0 14px;">Open clip</button>
+          </div>
+          <div class="result-head">
+            <div class="result-title">Senate Floor &middot; Bill reading</div>
+            <div class="result-date">2025-11-12 &middot; 22:08</div>
+          </div>
+          <div class="result-source">Senate floor session &middot; transcript @ 00:11:42</div>
+          <div class="result-excerpt">"This bill is about whether a kid in Greene County can do their homework. <mark>HB 391</mark> closes that gap."</div>
+          <div class="result-meta">
+            <span class="speaker">Sen. A</span>
+            <span><span class="bill-chip">HB 391</span> auto-extracted</span>
+            <span>Confidence <span class="conf-mono">0.97</span></span>
+          </div>
+        </div>
+
+        <div class="result">
+          <div class="result-actions">
+            <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
+            <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');" style="height: 32px; padding: 0 14px;">Open clip</button>
+          </div>
+          <div class="result-head">
+            <div class="result-title">Senate Floor &middot; Bill passage debate</div>
+            <div class="result-date">2025-12-02 &middot; 1:47:11</div>
+          </div>
+          <div class="result-source">Senate floor session &middot; transcript @ 01:11:32</div>
+          <div class="result-excerpt">"With the Senate's amendment, <mark>HB 391</mark> can do real work for districts the federal program will not reach. I urge passage."</div>
+          <div class="result-meta">
+            <span class="speaker">Sen. A</span>
+            <span><span class="bill-chip">HB 391</span> auto-extracted</span>
+            <span>Confidence <span class="conf-mono">0.95</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" data-view="transcript">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">House Children &amp; Senior Advocacy Committee <span class="phase-tag phase-mixed">Partial today</span></div>
+            <div class="panel-sub">February 28, 2024 &middot; 1:03:42 &middot; 13 speakers identified &middot; <span class="bill-chip" style="margin-left: 4px;">HB 391</span> bill auto-extracted</div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-secondary">Open clip</button>
+            <button class="btn-secondary">Copy citation</button>
+          </div>
+        </div>
+
+        <div class="transcript-meta">
+          <div class="meta-cell"><div class="meta-label">Meeting starts at</div><div class="meta-val">00:14:53 (preamble auto-trimmed)</div></div>
+          <div class="meta-cell"><div class="meta-label">Bills discussed</div><div class="meta-val">HB 391 &middot; HB 412 &middot; HJR 8</div></div>
+          <div class="meta-cell"><div class="meta-label">Source</div><div class="meta-val">archive.org backup &middot; full video</div></div>
+        </div>
+
+        <div class="start-marker">
+          <span class="line"></span>
+          <span class="label">Meeting starts &middot; 00:14:53</span>
+          <span class="line"></span>
+        </div>
+
+        <div class="seg">
+          <div class="seg-gutter"><span class="speaker-chip speaker-enrolled">Chair A</span><span class="ts">00:14:55</span></div>
+          <div class="utterance">The committee will come to order. Today we'll hear three bills, beginning with <mark>HB 391</mark>, the rural broadband matching grant. Rep. B, you're recognized.</div>
+        </div>
+        <div class="seg">
+          <div class="seg-gutter"><span class="speaker-chip speaker-enrolled">Rep. B</span><span class="ts">00:15:22</span></div>
+          <div class="utterance">Thank you, Madam Chair. <mark>HB 391</mark> establishes a $40 million matching grant for counties to extend last-mile broadband.</div>
+        </div>
+        <div class="seg">
+          <div class="seg-gutter"><span class="speaker-chip speaker-matched">Sen. A</span><span class="ts">00:24:18</span></div>
+          <div class="utterance">The rural <mark>broadband</mark> appropriation in HB 391 would only reach districts with verified service gaps. That's the question I keep coming back to - who actually qualifies under section 4(b)?</div>
+        </div>
+        <div class="seg">
+          <div class="seg-gutter"><span class="speaker-chip speaker-needs">Needs name</span><span class="ts">00:26:41</span></div>
+          <div class="utterance">Through the Chair - section 4(b) cross-references the FCC's broadband data collection. If a census block was reported served by any provider in the last cycle, it would be excluded from the grant pool.</div>
+        </div>
+        <div class="seg">
+          <div class="seg-gutter"><span class="speaker-chip speaker-fallback">Speaker 7</span><span class="ts">00:28:03</span></div>
+          <div class="utterance">And the appropriation runs three fiscal years, correct? After FY29 the program would sunset unless the legislature reauthorizes.</div>
+        </div>
+
+        <div class="note">
+          Speaker chips show how each speaker was identified — <b>green</b> is an enrolled member (matched by voice profile), <b>blue</b> is a confident match against the speaker database, <b>gold</b> means a real name is still pending review, <b>gray</b> is a generic label. Click <span class="mono">Copy citation</span> to copy the full source line for use in a story. <b style="color: var(--warning-dark);">Always verify a quote against the source video before publication.</b> Every citation export includes the source-video URL and timestamp so verification is one click.
+        </div>
+      </div>
+    </section>
+
+    <section class="view" data-view="member">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Sen. A &middot; District 19 <span class="phase-tag phase-coming">Coming, Phase 3</span></div>
+            <div class="panel-sub">Every recorded statement, indexed by bill and topic &middot; 2024 to present</div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-secondary">Export profile</button>
+            <button class="btn-secondary">Compare members</button>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card"><div class="lbl">Appearances</div><div class="val">487</div><div class="sub">across 124 meetings</div></div>
+          <div class="stat-card"><div class="lbl">Bills mentioned</div><div class="val">63</div><div class="sub">unique bills by name</div></div>
+          <div class="stat-card good"><div class="lbl">Floor vs. committee</div><div class="val">0.87</div><div class="sub">consistency, all topics</div></div>
+          <div class="stat-card"><div class="lbl">Words on the floor</div><div class="val">142k</div><div class="sub">est. 18 hours</div></div>
+        </div>
+
+        <div class="cons-title">Consistency by topic — floor remarks vs. committee remarks</div>
+        <div class="cons-row"><div>Broadband &amp; rural infrastructure</div><div class="cons-bar"><div class="cons-fill good" style="width: 94%;"></div></div><div class="cons-num good">0.94</div></div>
+        <div class="cons-row"><div>Education funding</div><div class="cons-bar"><div class="cons-fill good" style="width: 88%;"></div></div><div class="cons-num good">0.88</div></div>
+        <div class="cons-row"><div>Environmental regulation</div><div class="cons-bar"><div class="cons-fill warn" style="width: 71%;"></div></div><div class="cons-num warn">0.71</div></div>
+        <div class="cons-row"><div>Workforce housing</div><div class="cons-bar"><div class="cons-fill good" style="width: 96%;"></div></div><div class="cons-num good">0.96</div></div>
+        <div class="cons-row"><div>Tax policy</div><div class="cons-bar"><div class="cons-fill failed" style="width: 58%;"></div></div><div class="cons-num failed">0.58</div></div>
+        <div class="cons-row"><div>Healthcare access</div><div class="cons-bar"><div class="cons-fill good" style="width: 91%;"></div></div><div class="cons-num good">0.91</div></div>
+
+        <div class="note">
+          <b>How to read this.</b> Consistency compares what the member said on the floor versus in committee on the same topic. A score below 0.70 flags places where the public floor message diverges materially from the committee position. <b>Tax policy at 0.58 is the place to look</b> — worth pulling up the underlying clips to see where the floor and committee remarks don't match.
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Tax policy &middot; statement timeline</div>
+            <div class="panel-sub">6 statements across 5 meetings &middot; 2024-03 to 2026-03 &middot; tap any segment to open the clip</div>
+          </div>
+          <span class="chip chip-review">Consistency 0.58 &middot; Needs review</span>
+        </div>
+
+        <div class="seg">
+          <div class="seg-gutter"><span class="speaker-chip speaker-matched">Floor</span><span class="ts">2024-03-14 &middot; 00:47:02</span></div>
+          <div class="utterance">"Working Alabamians cannot carry one more dollar of tax. This package has to come down."</div>
+        </div>
+        <div class="seg">
+          <div class="seg-gutter"><span class="speaker-chip speaker-enrolled">Committee</span><span class="ts">2024-04-02 &middot; 00:18:46</span></div>
+          <div class="utterance">"I'm open to a phased approach if we can protect the education trust fund. A clean cut puts schools at risk."</div>
+        </div>
+        <div class="seg">
+          <div class="seg-gutter"><span class="speaker-chip speaker-matched">Floor</span><span class="ts">2025-09-19 &middot; 01:11:32</span></div>
+          <div class="utterance">"My constituents elected me to lower their taxes. Period."</div>
+        </div>
+        <div class="seg">
+          <div class="seg-gutter"><span class="speaker-chip speaker-enrolled">Committee</span><span class="ts">2025-10-08 &middot; 00:22:14</span></div>
+          <div class="utterance">"I'll support the rate cut tied to the trigger language we discussed — if revenue falls below the FY26 floor, we suspend."</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="demo-footer" style="margin-top: 28px; padding: 14px 18px; background: var(--warning-soft); border: 1px solid var(--warning); border-radius: 12px; font-size: 12px; color: var(--text); line-height: 1.6;">
+      <b style="color: var(--warning-dark); font-weight: 700;">Demo reminder.</b> Speaker names are placeholders, and every quote and stat is illustrative. In production, any quote pulled from this corpus must be <b style="color: var(--text);">independently verified against the source video</b> before publication. Citation exports include the source-video URL and timestamp so verification is one click.
+    </div>
+  </main>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.view-tab');
+  const views = document.querySelectorAll('.view');
+  const railItems = document.querySelectorAll('.rail-item');
+  const pageTitle = document.getElementById('page-title');
+
+  const titles = {
+    search: 'Ask the corpus',
+    transcript: 'Read a meeting',
+    member: 'Member tracking'
+  };
+
+  const railLabelMap = {
+    search: 'Ask the corpus',
+    transcript: 'Read a meeting',
+    member: 'Member tracking'
+  };
+
+  function switchTo(name) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    views.forEach(v => v.classList.toggle('active', v.dataset.view === name));
+    if (titles[name]) pageTitle.textContent = titles[name];
+    const railLabel = railLabelMap[name];
+    railItems.forEach(r => { r.classList.toggle('active', r.textContent.trim() === railLabel); });
+  }
+
+  const gate = document.getElementById('gate');
+  const gateBtn = document.getElementById('gate-continue');
+  if (gateBtn) gateBtn.addEventListener('click', () => { gate.style.display = 'none'; });
+  tabs.forEach(t => t.addEventListener('click', () => switchTo(t.dataset.tab)));
+  railItems.forEach(r => r.addEventListener('click', () => { if (r.dataset.view) switchTo(r.dataset.view); }));
+</script>
+</body>
+</html>
