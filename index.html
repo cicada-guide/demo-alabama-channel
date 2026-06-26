@@ -32,6 +32,7 @@
     --surface: #FFFFFF;
     --bg: #F6F8FC;
     --inverse: #FFFFFF;
+    --highlight: #FFE9A8;     /* search-term <mark> background (evidence highlight) */
     --display: "General Sans", "Segoe UI", system-ui, sans-serif;
     --sans: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
     --mono: "IBM Plex Mono", Consolas, monospace;
@@ -108,7 +109,7 @@
   .result-date { font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
   .result-source { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 12px; }
   .result-excerpt { font-size: 16px; color: var(--text); line-height: 1.55; background: var(--field); border-radius: 10px; padding: 12px 16px; }
-  .result-excerpt mark { background: #FFE9A8; color: var(--text); padding: 1px 4px; border-radius: 3px; font-weight: 600; }
+  .result-excerpt mark { background: var(--highlight); color: var(--text); padding: 1px 4px; border-radius: 3px; font-weight: 600; }
   .result-meta { display: flex; gap: 14px; margin-top: 14px; font-size: 12px; color: var(--muted); align-items: center; flex-wrap: wrap; }
   .speaker { display: inline-flex; align-items: center; gap: 7px; font-weight: 700; color: var(--text); }
   .speaker .av { width: 22px; height: 22px; border-radius: 50%; background: var(--primary-soft); color: var(--primary-dark); display: grid; place-items: center; font-size: 10px; font-weight: 700; font-family: var(--mono); }
@@ -151,7 +152,7 @@
   .speaker-fallback { background: var(--field); color: var(--muted); }
   .ts { font-family: var(--mono); font-size: 11px; color: var(--muted); font-weight: 500; }
   .utterance { font-size: 15px; line-height: 1.62; color: var(--text); }
-  .utterance mark { background: #FFE9A8; color: var(--text); padding: 1px 4px; border-radius: 3px; font-weight: 600; }
+  .utterance mark { background: var(--highlight); color: var(--text); padding: 1px 4px; border-radius: 3px; font-weight: 600; }
   .start-marker { display: flex; align-items: center; gap: 14px; margin: 26px 0; }
   .start-marker .line { flex: 1; height: 1.5px; background: var(--primary-soft); }
   .start-marker .label { font-size: 11px; font-weight: 600; color: var(--primary-dark); background: var(--primary-soft); padding: 5px 12px; border-radius: 999px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.5px; }
