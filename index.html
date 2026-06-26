@@ -6,172 +6,217 @@
 <title>The Alabama Channel — Newsroom Demo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* cicada.guide brand */
-    --primary: #2e97f2;
-    --primary-dark: #0a6dba;
-    --primary-soft: #E3F2FD;
-    --success: #06D6A0;
-    --success-dark: #04846a;
-    --success-soft: #DFF7EE;
-    --warning: #FFD166;
-    --warning-dark: #8A6D0A;
-    --warning-soft: #FFF6DC;
-    --danger: #EF476F;
-    --danger-dark: #B83056;
-    --danger-soft: #FCE1E9;
-    --rail: #1D2429;
-    --text: #1D2429;
-    --muted: #5B6770;
-    --border: #E2E5E8;
-    --field: #F0F1F2;
+    /* The Alabama Channel — Modern Civic Tech (see DESIGN.md) */
+    --primary: #1D63D1;
+    --primary-dark: #154FAC;
+    --primary-soft: #E5EEFC;
+    --teal: #0E8C8C;          /* verify / provenance */
+    --teal-soft: #DCF1F1;
+    --success: #1F8A4C;
+    --success-soft: #E3F4EA;
+    --warning: #B27A07;
+    --warning-soft: #FBEFD6;
+    --danger: #C0322B;
+    --danger-soft: #FAE5E3;
+    --rail: #102A4C;
+    --rail-2: #0B1F3A;
+    --text: #14223A;
+    --muted: #5A6B85;
+    --border: #E2E8F2;
+    --field: #EEF2F9;
     --surface: #FFFFFF;
-    --bg: #FAFAFA;
+    --bg: #F6F8FC;
     --inverse: #FFFFFF;
-    --sans: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --display: "General Sans", "Segoe UI", system-ui, sans-serif;
+    --sans: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
     --mono: "IBM Plex Mono", Consolas, monospace;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
-  .app { display: grid; grid-template-columns: 230px 1fr; min-height: 100vh; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .app { display: grid; grid-template-columns: 256px 1fr; min-height: 100vh; }
 
-  .rail { background: var(--rail); color: var(--inverse); padding: 24px 0; display: flex; flex-direction: column; }
-  .rail-brand { padding: 0 22px 22px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .rail-brand-title { font-weight: 700; font-size: 15px; letter-spacing: -0.1px; }
-  .rail-brand-sub { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.6); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-  .rail-section { padding: 18px 16px 8px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,0.45); font-weight: 600; }
-  .rail-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; margin: 1px 10px; border-radius: 8px; font-weight: 600; font-size: 13px; color: rgba(255,255,255,0.85); cursor: pointer; }
-  .rail-item:hover { background: rgba(255,255,255,0.05); }
-  .rail-item.active { background: rgba(46,151,242,0.16); color: var(--inverse); }
-  .rail-item.active::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
+  .rail { background: linear-gradient(180deg, var(--rail) 0%, var(--rail-2) 100%); color: var(--inverse); padding: 24px 0; display: flex; flex-direction: column; }
+  .rail-brand { padding: 0 22px 20px; }
+  .rail-brand-title { font-family: var(--display); font-weight: 600; font-size: 19px; line-height: 1.15; letter-spacing: -0.01em; }
+  .rail-brand-sub { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 7px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+  .rail-section { padding: 18px 22px 6px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,0.45); font-weight: 600; }
+  .rail-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; margin: 2px 12px; border-radius: 9px; font-weight: 500; font-size: 13.5px; color: rgba(255,255,255,0.82); cursor: pointer; }
+  .rail-item:hover { background: rgba(255,255,255,0.08); color: var(--inverse); }
+  .rail-item.active { background: rgba(255,255,255,0.14); color: var(--inverse); }
+  .rail-item.active::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #5BC8C8; }
   .rail-item:not(.active)::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.18); }
-  .rail-footer { margin-top: auto; padding: 16px 22px; border-top: 1px solid rgba(255,255,255,0.08); font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.42); line-height: 1.6; font-weight: 500; }
+  .rail-footer { margin-top: auto; padding: 18px 22px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+  .rail-pill { display: inline-block; background: rgba(91,200,200,0.18); color: #9FE4E4; font-family: var(--mono); font-size: 10px; letter-spacing: 0.5px; padding: 3px 9px; border-radius: 999px; margin-bottom: 8px; font-weight: 600; }
 
-  .main { padding: 28px 32px 56px; max-width: 1120px; }
-  .demo-banner { display: flex; align-items: center; justify-content: center; gap: 12px; background: var(--warning-soft); color: var(--warning-dark); padding: 9px 14px; border-radius: 8px; margin-bottom: 18px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.5px; font-weight: 600; border: 1px solid var(--warning); }
-  .demo-banner .badge { background: var(--warning); color: var(--rail); padding: 3px 9px; border-radius: 999px; font-weight: 800; }
+  .main { padding: 28px 36px 56px; max-width: 1060px; }
+  .demo-banner { display: flex; align-items: center; gap: 12px; background: var(--warning-soft); color: var(--warning); padding: 10px 14px; border-radius: 12px; margin-bottom: 20px; font-size: 12.5px; font-weight: 500; border: 1px solid #EAD9AE; }
+  .demo-banner .badge { background: var(--warning); color: #fff; padding: 3px 10px; border-radius: 999px; font-weight: 700; font-size: 10px; letter-spacing: 1px; }
 
   .topbar { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 22px; gap: 16px; }
-  .topbar h1 { font-size: 26px; font-weight: 700; margin: 0; line-height: 1.15; letter-spacing: -0.4px; }
-  .topbar .meta { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 5px; font-weight: 500; }
+  .topbar h1 { font-family: var(--display); font-size: 32px; font-weight: 600; margin: 0; line-height: 1.1; letter-spacing: -0.02em; }
+  .topbar .meta { font-size: 13px; color: var(--muted); margin-top: 6px; }
 
-  .view-tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
-  .view-tab { padding: 12px 16px; font-weight: 600; font-size: 13px; color: var(--muted); cursor: pointer; background: transparent; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .view-tabs { display: flex; gap: 6px; margin-bottom: 22px; }
+  .view-tab { padding: 9px 16px; font-weight: 600; font-size: 13px; color: var(--muted); cursor: pointer; background: transparent; border: 1px solid transparent; border-radius: 10px 10px 0 0; }
   .view-tab:hover { color: var(--text); }
-  .view-tab.active { color: var(--primary-dark); border-bottom-color: var(--primary); }
+  .view-tab.active { color: var(--primary-dark); background: var(--surface); border-color: var(--border); border-bottom-color: var(--surface); margin-bottom: -1px; box-shadow: 0 -1px 2px rgba(20,34,58,0.03); }
 
-  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 2px rgba(29,36,41,0.04); }
-  .panel-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
-  .panel-title { font-size: 18px; font-weight: 700; margin: 0; letter-spacing: -0.2px; }
-  .panel-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 18px; box-shadow: 0 1px 2px rgba(20,34,58,0.04); }
+  .panel-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; gap: 12px; }
+  .panel-title { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .panel-sub { font-size: 13.5px; color: var(--muted); margin-top: 5px; }
 
-  .search-row { display: flex; gap: 8px; margin-bottom: 14px; }
-  .search-input { flex: 1; background: var(--field); border: 1px solid var(--border); border-radius: 10px; padding: 13px 16px; font-family: var(--sans); font-size: 14px; color: var(--text); font-weight: 500; }
-  .search-input:focus { outline: 2px solid var(--primary); outline-offset: -1px; background: var(--surface); }
-  .btn-primary { background: var(--primary); color: var(--inverse); border: 0; border-radius: 10px; padding: 0 22px; height: 48px; font-weight: 700; font-size: 13px; cursor: pointer; letter-spacing: 0.2px; }
+  .search-row { display: flex; gap: 10px; margin-bottom: 16px; }
+  .search-input { flex: 1; background: var(--field); border: 1.5px solid transparent; border-radius: 12px; padding: 14px 16px; font-family: var(--sans); font-size: 15px; color: var(--text); font-weight: 500; }
+  .search-input:focus { outline: none; border-color: var(--primary); background: var(--surface); }
+  .btn-primary { background: var(--primary); color: var(--inverse); border: 0; border-radius: 12px; padding: 0 24px; height: 50px; font-family: var(--sans); font-weight: 700; font-size: 14px; cursor: pointer; }
   .btn-primary:hover { background: var(--primary-dark); }
-  .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 0 14px; height: 38px; font-weight: 600; font-size: 12px; cursor: pointer; }
-  .btn-secondary:hover { background: var(--field); }
-  .filter-row { display: flex; gap: 7px; flex-wrap: wrap; }
-  .filter-chip { background: var(--field); border: 1px solid transparent; border-radius: 999px; padding: 6px 13px; font-size: 11.5px; font-weight: 600; color: var(--text); cursor: pointer; }
-  .filter-chip:hover { background: var(--border); }
+  .btn-secondary { background: var(--surface); color: var(--text); border: 1.5px solid var(--border); border-radius: 10px; padding: 0 14px; height: 40px; font-weight: 600; font-size: 12.5px; cursor: pointer; }
+  .btn-secondary:hover { background: var(--field); border-color: #CBD6E8; }
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-chip { background: var(--field); border: 1.5px solid transparent; border-radius: 999px; padding: 6px 13px; font-size: 12.5px; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .filter-chip:hover { color: var(--text); }
   .filter-chip.active { background: var(--primary-soft); color: var(--primary-dark); border-color: var(--primary); }
 
-  .ai-panel { background: linear-gradient(135deg, var(--primary-soft) 0%, #F5FAFE 100%); border: 1px solid var(--primary); border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }
-  .ai-label { font-family: var(--mono); font-size: 10px; font-weight: 700; color: var(--primary-dark); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-  .ai-label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
-  .ai-body { font-size: 14px; color: var(--text); line-height: 1.6; }
-  .ai-meta { margin-top: 10px; font-size: 11px; color: var(--muted); font-family: var(--mono); }
-  .ai-link { color: var(--primary-dark); cursor: pointer; font-weight: 700; }
+  .ai-panel { position: relative; overflow: hidden; background: linear-gradient(180deg, #FFFFFF 0%, #FAFCFF 100%); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; margin-bottom: 18px; box-shadow: 0 1px 2px rgba(20,34,58,0.04); }
+  .ai-panel::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--primary), var(--teal)); }
+  .ai-label { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--teal); background: var(--teal-soft); padding: 4px 10px; border-radius: 999px; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 14px; }
+  .ai-label::before { content: "✦"; font-size: 11px; }
+  .ai-body { font-size: 16px; color: var(--text); line-height: 1.62; }
+  .ai-body b { font-weight: 700; color: var(--primary-dark); }
+  .ai-meta { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .ai-link { color: var(--primary); cursor: pointer; font-weight: 700; margin-left: auto; }
+  .conf-pill { font-family: var(--mono); background: var(--success-soft); color: var(--success); padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; }
 
-  .results-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 10px 0; border-bottom: 1px solid var(--border); margin-bottom: 8px; font-weight: 500; }
-  .result { padding: 16px; border-bottom: 1px solid var(--border); cursor: pointer; position: relative; border-radius: 10px; }
-  .result:hover { background: var(--field); }
-  .result:last-child { border-bottom: 0; }
-  .result-actions { position: absolute; top: 14px; right: 14px; display: none; gap: 6px; }
+  .results-meta { font-size: 12.5px; color: var(--muted); padding: 0 0 14px; font-weight: 600; }
+  .result { padding: 20px 22px; border: 1px solid var(--border); border-radius: 14px; cursor: pointer; position: relative; margin-bottom: 14px; transition: box-shadow .15s, border-color .15s; background: var(--surface); }
+  .result:hover { box-shadow: 0 4px 16px rgba(20,34,58,0.08); border-color: #CBD6E8; }
+  .result:last-child { margin-bottom: 0; }
+  .result-actions { position: absolute; top: 18px; right: 18px; display: none; gap: 8px; }
   .result:hover .result-actions { display: flex; }
-  .result-actions .btn-secondary, .result-actions .btn-primary { height: 32px; padding: 0 14px; font-size: 11.5px; }
-  .result-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-  .result-title { font-weight: 700; font-size: 14px; }
-  .result-date { font-family: var(--mono); font-size: 11px; color: var(--muted); }
-  .result-source { font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-bottom: 8px; }
-  .result-excerpt { font-size: 14px; color: var(--text); line-height: 1.55; }
-  .result-excerpt mark { background: var(--warning-soft); color: var(--warning-dark); padding: 1px 5px; border-radius: 4px; font-weight: 600; }
-  .result-meta { display: flex; gap: 14px; margin-top: 9px; font-size: 11.5px; color: var(--muted); align-items: center; }
-  .speaker { font-weight: 700; color: var(--text); }
-  .bill-chip { display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-dark); font-family: var(--mono); font-size: 10.5px; font-weight: 700; margin-right: 4px; }
-  .conf-mono { font-family: var(--mono); font-size: 11px; font-weight: 600; }
+  .result-actions .btn-secondary, .result-actions .btn-primary { height: 34px; padding: 0 14px; font-size: 12.5px; border-radius: 10px; }
+  .result-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; gap: 12px; }
+  .result-title { font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
+  .result-date { font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+  .result-source { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+  .result-excerpt { font-size: 16px; color: var(--text); line-height: 1.55; background: var(--field); border-radius: 10px; padding: 12px 16px; }
+  .result-excerpt mark { background: #FFE9A8; color: var(--text); padding: 1px 4px; border-radius: 3px; font-weight: 600; }
+  .result-meta { display: flex; gap: 14px; margin-top: 14px; font-size: 12px; color: var(--muted); align-items: center; flex-wrap: wrap; }
+  .speaker { display: inline-flex; align-items: center; gap: 7px; font-weight: 700; color: var(--text); }
+  .speaker .av { width: 22px; height: 22px; border-radius: 50%; background: var(--primary-soft); color: var(--primary-dark); display: grid; place-items: center; font-size: 10px; font-weight: 700; font-family: var(--mono); }
+  .bill-chip { display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-dark); font-family: var(--mono); font-size: 10.5px; font-weight: 600; margin-right: 4px; }
+  .conf-mono { font-family: var(--mono); font-size: 12px; font-weight: 600; }
+  .conf-good { color: var(--success); }
+  .conf-warn { color: var(--warning); }
+  .conf-bad { color: var(--danger); }
 
-  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
-  .stat-card { background: var(--field); border-radius: 12px; padding: 14px 16px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+  .stat-card { background: var(--field); border: 1px solid transparent; border-radius: 14px; padding: 16px 18px; }
   .stat-card .lbl { font-family: var(--mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
-  .stat-card .val { font-family: var(--sans); font-size: 26px; font-weight: 800; color: var(--text); margin-top: 4px; letter-spacing: -0.5px; }
-  .stat-card .sub { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
-  .stat-card.good .val { color: var(--success-dark); }
-  .stat-card.good { background: var(--success-soft); }
+  .stat-card .val { font-family: var(--display); font-size: 28px; font-weight: 600; color: var(--text); margin-top: 6px; letter-spacing: -0.02em; }
+  .stat-card .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .stat-card.good { background: var(--success-soft); border-color: #C9E6D5; }
+  .stat-card.good .val { color: var(--success); }
 
-  .cons-title { font-weight: 700; font-size: 14px; margin: 6px 0 12px; }
-  .cons-row { display: grid; grid-template-columns: 220px 1fr 60px; gap: 12px 14px; align-items: center; font-size: 13px; padding: 7px 0; }
+  .cons-title { font-family: var(--display); font-weight: 600; font-size: 15px; margin: 6px 0 14px; }
+  .cons-row { display: grid; grid-template-columns: 240px 1fr 60px; gap: 12px 16px; align-items: center; font-size: 13.5px; padding: 8px 0; }
   .cons-bar { background: var(--field); border-radius: 999px; height: 12px; position: relative; overflow: hidden; }
   .cons-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; }
   .cons-fill.good { background: var(--success); }
   .cons-fill.warn { background: var(--warning); }
   .cons-fill.failed { background: var(--danger); }
-  .cons-num { font-family: var(--mono); font-size: 12px; font-weight: 700; text-align: right; }
-  .cons-num.good { color: var(--success-dark); }
-  .cons-num.warn { color: var(--warning-dark); }
-  .cons-num.failed { color: var(--danger-dark); }
+  .cons-num { font-family: var(--mono); font-size: 12px; font-weight: 600; text-align: right; }
+  .cons-num.good { color: var(--success); }
+  .cons-num.warn { color: var(--warning); }
+  .cons-num.failed { color: var(--danger); }
 
-  .transcript-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
-  .meta-cell .meta-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
-  .meta-cell .meta-val { font-size: 13px; font-weight: 700; color: var(--text); }
-  .seg { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 12px 8px; border-radius: 10px; }
+  .transcript-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .meta-cell .meta-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
+  .meta-cell .meta-val { font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .seg { display: grid; grid-template-columns: 150px 1fr; gap: 18px; padding: 14px 10px; border-radius: 12px; }
   .seg:hover { background: var(--field); }
-  .seg-gutter { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; }
-  .speaker-chip { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; font-family: var(--mono); font-size: 10.5px; font-weight: 700; }
-  .speaker-enrolled { background: var(--success); color: var(--rail); }
+  .seg-gutter { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+  .speaker-chip { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; font-family: var(--mono); font-size: 10.5px; font-weight: 600; }
+  .speaker-enrolled { background: var(--success); color: #fff; }
   .speaker-matched { background: var(--primary-soft); color: var(--primary-dark); }
-  .speaker-needs { background: var(--warning); color: var(--rail); }
+  .speaker-needs { background: var(--warning); color: #fff; }
   .speaker-fallback { background: var(--field); color: var(--muted); }
   .ts { font-family: var(--mono); font-size: 11px; color: var(--muted); font-weight: 500; }
-  .utterance { font-size: 14.5px; line-height: 1.6; color: var(--text); }
-  .utterance mark { background: var(--warning-soft); color: var(--warning-dark); padding: 1px 5px; border-radius: 4px; font-weight: 600; }
+  .utterance { font-size: 15px; line-height: 1.62; color: var(--text); }
+  .utterance mark { background: #FFE9A8; color: var(--text); padding: 1px 4px; border-radius: 3px; font-weight: 600; }
   .start-marker { display: flex; align-items: center; gap: 14px; margin: 26px 0; }
-  .start-marker .line { flex: 1; height: 2px; background: var(--primary-soft); }
-  .start-marker .label { font-size: 12px; font-weight: 700; color: var(--primary-dark); background: var(--primary-soft); padding: 4px 12px; border-radius: 999px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.5px; }
+  .start-marker .line { flex: 1; height: 1.5px; background: var(--primary-soft); }
+  .start-marker .label { font-size: 11px; font-weight: 600; color: var(--primary-dark); background: var(--primary-soft); padding: 5px 12px; border-radius: 999px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.5px; }
 
-  .note { font-size: 12.5px; color: var(--muted); margin-top: 18px; line-height: 1.6; padding-top: 16px; border-top: 1px solid var(--border); }
+  .note { font-size: 13px; color: var(--muted); margin-top: 20px; line-height: 1.65; padding-top: 18px; border-top: 1px solid var(--border); }
   .note b { color: var(--text); font-weight: 700; }
-  .note .mono { font-family: var(--mono); }
+  .note .mono { font-family: var(--mono); font-size: 12px; }
 
   .view { display: none; }
   .view.active { display: block; }
 
-  .chip { display: inline-flex; align-items: center; height: 26px; padding: 0 11px; border-radius: 999px; font-family: var(--mono); font-size: 11px; font-weight: 700; }
-  .chip-review { background: var(--warning-soft); color: var(--warning-dark); }
-  .phase-tag { display: inline-flex; align-items: center; gap: 5px; font-family: var(--sans); font-size: 10.5px; font-weight: 600; padding: 1px 9px 1px 7px; border-radius: 999px; vertical-align: 2px; }
+  .chip { display: inline-flex; align-items: center; height: 26px; padding: 0 12px; border-radius: 999px; font-family: var(--mono); font-size: 11px; font-weight: 600; }
+  .chip-review { background: var(--warning-soft); color: var(--warning); }
+  .phase-tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 3px 10px 3px 8px; border-radius: 999px; vertical-align: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
   .phase-tag::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; }
-  .phase-today { background: transparent; color: var(--success-dark); border: 1px solid var(--success); }
+  .phase-today { background: var(--success-soft); color: var(--success); }
   .phase-today::before { background: var(--success); }
-  .phase-coming { background: transparent; color: var(--muted); border: 1px solid var(--border); }
-  .phase-coming::before { background: var(--warning); }
-  .phase-mixed { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  /* Verify-Teal Rule: teal is reserved for provenance, not roadmap status — use neutral. */
+  .phase-coming { background: var(--field); color: var(--muted); }
+  .phase-coming::before { background: var(--muted); }
+  .phase-mixed { background: var(--primary-soft); color: var(--primary-dark); }
   .phase-mixed::before { background: var(--primary); }
-  .verify-chip { display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; background: var(--warning-soft); color: var(--warning-dark); font-family: var(--mono); font-size: 10.5px; font-weight: 700; margin-right: 4px; border: 1px solid var(--warning); }
-  /* Click-through gate */
-  #gate { position: fixed; inset: 0; background: rgba(29,36,41,0.93); display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 24px; }
-  #gate .card { background: var(--surface); border-radius: 14px; max-width: 580px; padding: 30px 34px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-  #gate h2 { margin: 0 0 10px; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; color: var(--text); }
-  #gate .ribbon { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 800; background: var(--warning); color: var(--rail); padding: 4px 11px; border-radius: 999px; letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 14px; }
-  #gate p { font-size: 14px; line-height: 1.6; color: var(--text); margin: 8px 0; }
-  #gate p b { font-weight: 700; color: var(--primary-dark); }
-  #gate ul { padding-left: 20px; margin: 8px 0; font-size: 13.5px; line-height: 1.6; color: var(--text); }
-  #gate ul li { margin-bottom: 4px; }
-  #gate .actions { margin-top: 22px; display: flex; gap: 10px; justify-content: flex-end; }
-  #gate .btn-primary { font-family: var(--sans); height: 44px; padding: 0 22px; }
+  .verify-chip { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 9px; border-radius: 999px; background: var(--warning-soft); color: var(--warning); font-family: var(--mono); font-size: 10.5px; font-weight: 600; margin-right: 4px; border: 1px solid #EAD9AE; }
 
+  /* Click-through gate */
+  #gate { position: fixed; inset: 0; background: rgba(11,31,58,0.92); display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 24px; }
+  #gate .card { background: var(--surface); border-radius: 18px; max-width: 580px; padding: 32px 36px; box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+  #gate h2 { font-family: var(--display); margin: 0 0 12px; font-size: 24px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); }
+  #gate .ribbon { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; background: var(--warning); color: #fff; padding: 4px 11px; border-radius: 999px; letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 16px; }
+  #gate p { font-size: 14.5px; line-height: 1.62; color: var(--text); margin: 8px 0; }
+  #gate p b { font-weight: 700; color: var(--primary-dark); }
+  #gate ul { padding-left: 20px; margin: 10px 0; font-size: 14px; line-height: 1.62; color: var(--text); }
+  #gate ul li { margin-bottom: 5px; }
+  #gate .actions { margin-top: 24px; display: flex; gap: 10px; justify-content: flex-end; }
+  #gate .btn-primary { font-family: var(--sans); height: 46px; padding: 0 24px; }
+
+  a:focus-visible, button:focus-visible, [role="button"]:focus-visible, [role="tab"]:focus-visible {
+    outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 8px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .result, .result:hover { transition: none; box-shadow: 0 1px 2px rgba(20,34,58,0.04); border-color: var(--border); }
+  }
+
+  /* Phones / small tablets: the fixed rail becomes a horizontal top bar; dense grids stack. */
+  @media (max-width: 720px) {
+    .app { grid-template-columns: 1fr; }
+    .rail { flex-direction: row; flex-wrap: nowrap; align-items: center; overflow-x: auto; padding: 10px 12px; gap: 2px; }
+    .rail-brand { flex: 0 0 auto; padding: 0 10px 0 4px; }
+    .rail-brand-sub { display: none; }
+    .rail-section, .rail-footer { display: none; }
+    .rail-item { flex: 0 0 auto; margin: 0; white-space: nowrap; }
+    .rail-item:not(.active)::before { display: none; }
+    .main { padding: 18px 16px 40px; max-width: none; }
+    .topbar h1 { font-size: 26px; }
+    .search-row { flex-wrap: wrap; }
+    .search-input { flex: 1 1 100%; }
+    .search-row .btn-primary { width: 100%; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .transcript-meta { grid-template-columns: 1fr; gap: 12px; }
+    .seg { grid-template-columns: 1fr; gap: 6px; }
+    .seg-gutter { flex-direction: row; align-items: center; gap: 10px; }
+    .cons-row { grid-template-columns: 1fr auto; gap: 6px 10px; }
+    .cons-bar { grid-column: 1 / -1; }
+    /* Touch has no hover: surface the per-result actions inline at the bottom of the card. */
+    .result { display: flex; flex-direction: column; }
+    .result .result-actions { position: static; order: 5; display: flex; margin-top: 14px; }
+  }
 </style>
 </head>
 <body>
@@ -184,7 +229,7 @@
       <li><b>Every speaker name is a placeholder</b> (Sen. A, Chair A, Rep. B) &mdash; not real Alabama officials.</li>
       <li><b>All quotes and consistency scores are synthetic</b> and illustrative only.</li>
       <li>Some features shown (live capture, AI search, member analytics) are still in development.</li>
-      <li>Please don\'t screenshot or share these screens without this notice attached.</li>
+      <li>Please don&rsquo;t screenshot or share these screens without this notice attached.</li>
     </ul>
     <p>By continuing, you acknowledge that any quote drawn from a future production system must be <b>independently verified against the source video</b> before publication.</p>
     <div class="actions">
@@ -208,8 +253,8 @@
     <div class="rail-item" data-view="search"><span>Bodies &amp; sessions</span></div>
     <div class="rail-item" data-view="search"><span>Elected officials</span></div>
     <div class="rail-footer">
-      <div>Free to the public.</div>
-      <div style="margin-top: 6px;">LWV of Alabama Education Fund &times; cicada.guide</div>
+      <span class="rail-pill">Free to the public</span>
+      <div>LWV of Alabama Education Fund &times; cicada.guide</div>
     </div>
   </aside>
 
@@ -223,10 +268,10 @@
       </div>
     </div>
 
-    <div class="view-tabs">
-      <div class="view-tab active" data-tab="search">Ask</div>
-      <div class="view-tab" data-tab="transcript">Read a meeting</div>
-      <div class="view-tab" data-tab="member">Member tracking</div>
+    <div class="view-tabs" role="tablist" aria-label="Views">
+      <div class="view-tab active" data-tab="search" role="tab" tabindex="0" aria-selected="true">Ask</div>
+      <div class="view-tab" data-tab="transcript" role="tab" tabindex="0" aria-selected="false">Read a meeting</div>
+      <div class="view-tab" data-tab="member" role="tab" tabindex="0" aria-selected="false">Member tracking</div>
     </div>
 
     <section class="view active" data-view="search">
@@ -250,90 +295,88 @@
           <span class="filter-chip">Public Service Commission</span>
           <span class="filter-chip" title="Alabama Environmental Management Commission">EMC</span>
           <span class="filter-chip">2024-2026</span>
-          <span class="filter-chip" style="background: var(--primary-soft); color: var(--primary-dark); border: 1px solid var(--primary);">Bill: HB 391</span>
+          <span class="filter-chip active">Bill: HB 391</span>
         </div>
       </div>
 
       <div class="ai-panel">
         <div class="ai-label">AI summary &middot; synthesized</div>
         <div class="ai-body">Sen. A spoke on HB 391 in <b>4 meetings</b> this session — twice in committee, twice on the floor. His central question is the eligibility threshold under section 4(b): whether census blocks reported served by any provider in the last FCC cycle should be excluded from the grant pool. On the floor he framed it as a rural-access concern; in committee he focused on the cap, supporting the Senate companion's move from $40M to $55M and a sunset on the middle-mile carve-out.</div>
-        <div class="ai-meta">Generated from 9 speaker-attributed segments &middot; confidence avg 0.94 &middot; <span class="ai-link">View all sources &rarr;</span></div>
+        <div class="ai-meta">Generated from 9 speaker-attributed segments <span class="conf-pill">confidence avg 0.94</span> <span class="ai-link">View all sources &rarr;</span></div>
       </div>
 
-      <div class="panel">
-        <div class="results-meta">4 of 9 segments shown &middot; sorted by relevance</div>
+      <div class="results-meta">4 of 9 segments shown &middot; sorted by relevance</div>
 
-        <div class="result" onclick="switchTo('transcript')">
-          <div class="result-actions">
-            <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
-            <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');" style="height: 32px; padding: 0 14px;">Open clip</button>
-          </div>
-          <div class="result-head">
-            <div class="result-title">Senate Fiscal Responsibility &amp; Economic Development</div>
-            <div class="result-date">2025-11-04 &middot; 47:21</div>
-          </div>
-          <div class="result-source">Senate Cmte hearing &middot; transcript @ 00:18:46</div>
-          <div class="result-excerpt">"The Senate companion to <mark>HB 391</mark> moves the cap from $40M to $55M and adds a sunset on the <mark>broadband</mark> middle-mile carve-out."</div>
-          <div class="result-meta">
-            <span class="speaker">Sen. A</span>
-            <span><span class="bill-chip">HB 391</span> auto-extracted</span>
-            <span>Confidence <span class="conf-mono">0.96</span></span>
-          </div>
+      <div class="result" onclick="switchTo('transcript')">
+        <div class="result-actions">
+          <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
+          <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');">Open clip</button>
         </div>
-
-        <div class="result">
-          <div class="result-actions">
-            <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
-            <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');" style="height: 32px; padding: 0 14px;">Open clip</button>
-          </div>
-          <div class="result-head">
-            <div class="result-title">House Children &amp; Senior Advocacy Committee</div>
-            <div class="result-date">2024-02-28 &middot; 1:03:42</div>
-          </div>
-          <div class="result-source">House Cmte hearing &middot; transcript @ 00:24:18</div>
-          <div class="result-excerpt">"The rural <mark>broadband</mark> appropriation in <mark>HB 391</mark> would only reach districts with verified service gaps. That's the question I keep coming back to - who actually qualifies under section 4(b)?"</div>
-          <div class="result-meta">
-            <span class="speaker">Sen. A</span>
-            <span><span class="bill-chip">HB 391</span> auto-extracted</span>
-            <span>Confidence <span class="conf-mono">0.78</span></span>
-            <span class="verify-chip">Verify against source</span>
-          </div>
+        <div class="result-head">
+          <div class="result-title">Senate Fiscal Responsibility &amp; Economic Development</div>
+          <div class="result-date">2025-11-04 &middot; 47:21</div>
         </div>
-
-        <div class="result">
-          <div class="result-actions">
-            <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
-            <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');" style="height: 32px; padding: 0 14px;">Open clip</button>
-          </div>
-          <div class="result-head">
-            <div class="result-title">Senate Floor &middot; Bill reading</div>
-            <div class="result-date">2025-11-12 &middot; 22:08</div>
-          </div>
-          <div class="result-source">Senate floor session &middot; transcript @ 00:11:42</div>
-          <div class="result-excerpt">"This bill is about whether a kid in Greene County can do their homework. <mark>HB 391</mark> closes that gap."</div>
-          <div class="result-meta">
-            <span class="speaker">Sen. A</span>
-            <span><span class="bill-chip">HB 391</span> auto-extracted</span>
-            <span>Confidence <span class="conf-mono">0.97</span></span>
-          </div>
+        <div class="result-source">Senate Cmte hearing &middot; transcript @ 00:18:46</div>
+        <div class="result-excerpt">"The Senate companion to <mark>HB 391</mark> moves the cap from $40M to $55M and adds a sunset on the <mark>broadband</mark> middle-mile carve-out."</div>
+        <div class="result-meta">
+          <span class="speaker"><span class="av">SA</span> Sen. A</span>
+          <span><span class="bill-chip">HB 391</span> auto-extracted</span>
+          <span>Confidence <span class="conf-mono conf-good">0.96</span></span>
         </div>
+      </div>
 
-        <div class="result">
-          <div class="result-actions">
-            <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
-            <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');" style="height: 32px; padding: 0 14px;">Open clip</button>
-          </div>
-          <div class="result-head">
-            <div class="result-title">Senate Floor &middot; Bill passage debate</div>
-            <div class="result-date">2025-12-02 &middot; 1:47:11</div>
-          </div>
-          <div class="result-source">Senate floor session &middot; transcript @ 01:11:32</div>
-          <div class="result-excerpt">"With the Senate's amendment, <mark>HB 391</mark> can do real work for districts the federal program will not reach. I urge passage."</div>
-          <div class="result-meta">
-            <span class="speaker">Sen. A</span>
-            <span><span class="bill-chip">HB 391</span> auto-extracted</span>
-            <span>Confidence <span class="conf-mono">0.95</span></span>
-          </div>
+      <div class="result">
+        <div class="result-actions">
+          <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
+          <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');">Open clip</button>
+        </div>
+        <div class="result-head">
+          <div class="result-title">House Children &amp; Senior Advocacy Committee</div>
+          <div class="result-date">2024-02-28 &middot; 1:03:42</div>
+        </div>
+        <div class="result-source">House Cmte hearing &middot; transcript @ 00:24:18</div>
+        <div class="result-excerpt">"The rural <mark>broadband</mark> appropriation in <mark>HB 391</mark> would only reach districts with verified service gaps. That's the question I keep coming back to - who actually qualifies under section 4(b)?"</div>
+        <div class="result-meta">
+          <span class="speaker"><span class="av">SA</span> Sen. A</span>
+          <span><span class="bill-chip">HB 391</span> auto-extracted</span>
+          <span>Confidence <span class="conf-mono conf-warn">0.78</span></span>
+          <span class="verify-chip">Verify against source</span>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="result-actions">
+          <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
+          <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');">Open clip</button>
+        </div>
+        <div class="result-head">
+          <div class="result-title">Senate Floor &middot; Bill reading</div>
+          <div class="result-date">2025-11-12 &middot; 22:08</div>
+        </div>
+        <div class="result-source">Senate floor session &middot; transcript @ 00:11:42</div>
+        <div class="result-excerpt">"This bill is about whether a kid in Greene County can do their homework. <mark>HB 391</mark> closes that gap."</div>
+        <div class="result-meta">
+          <span class="speaker"><span class="av">SA</span> Sen. A</span>
+          <span><span class="bill-chip">HB 391</span> auto-extracted</span>
+          <span>Confidence <span class="conf-mono conf-good">0.97</span></span>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="result-actions">
+          <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
+          <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');">Open clip</button>
+        </div>
+        <div class="result-head">
+          <div class="result-title">Senate Floor &middot; Bill passage debate</div>
+          <div class="result-date">2025-12-02 &middot; 1:47:11</div>
+        </div>
+        <div class="result-source">Senate floor session &middot; transcript @ 01:11:32</div>
+        <div class="result-excerpt">"With the Senate's amendment, <mark>HB 391</mark> can do real work for districts the federal program will not reach. I urge passage."</div>
+        <div class="result-meta">
+          <span class="speaker"><span class="av">SA</span> Sen. A</span>
+          <span><span class="bill-chip">HB 391</span> auto-extracted</span>
+          <span>Confidence <span class="conf-mono conf-good">0.95</span></span>
         </div>
       </div>
     </section>
@@ -385,7 +428,7 @@
         </div>
 
         <div class="note">
-          Speaker chips show how each speaker was identified — <b>green</b> is an enrolled member (matched by voice profile), <b>blue</b> is a confident match against the speaker database, <b>gold</b> means a real name is still pending review, <b>gray</b> is a generic label. Click <span class="mono">Copy citation</span> to copy the full source line for use in a story. <b style="color: var(--warning-dark);">Always verify a quote against the source video before publication.</b> Every citation export includes the source-video URL and timestamp so verification is one click.
+          Speaker chips show how each speaker was identified — <b>green</b> is an enrolled member (matched by voice profile), <b>blue</b> is a confident match against the speaker database, <b>gold</b> means a real name is still pending review, <b>gray</b> is a generic label. Click <span class="mono">Copy citation</span> to copy the full source line for use in a story. <b style="color: var(--warning);">Always verify a quote against the source video before publication.</b> Every citation export includes the source-video URL and timestamp so verification is one click.
         </div>
       </div>
     </section>
@@ -451,8 +494,8 @@
       </div>
     </section>
 
-    <div class="demo-footer" style="margin-top: 28px; padding: 14px 18px; background: var(--warning-soft); border: 1px solid var(--warning); border-radius: 12px; font-size: 12px; color: var(--text); line-height: 1.6;">
-      <b style="color: var(--warning-dark); font-weight: 700;">Demo reminder.</b> Speaker names are placeholders, and every quote and stat is illustrative. In production, any quote pulled from this corpus must be <b style="color: var(--text);">independently verified against the source video</b> before publication. Citation exports include the source-video URL and timestamp so verification is one click.
+    <div class="demo-footer" style="margin-top: 28px; padding: 16px 20px; background: var(--warning-soft); border: 1px solid #EAD9AE; border-radius: 14px; font-size: 12.5px; color: var(--text); line-height: 1.65;">
+      <b style="color: var(--warning); font-weight: 700;">Demo reminder.</b> Speaker names are placeholders, and every quote and stat is illustrative. In production, any quote pulled from this corpus must be <b style="color: var(--text);">independently verified against the source video</b> before publication. Citation exports include the source-video URL and timestamp so verification is one click.
     </div>
   </main>
 </div>
@@ -476,11 +519,11 @@
   };
 
   function switchTo(name) {
-    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    tabs.forEach(t => { const on = t.dataset.tab === name; t.classList.toggle('active', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
     views.forEach(v => v.classList.toggle('active', v.dataset.view === name));
     if (titles[name]) pageTitle.textContent = titles[name];
     const railLabel = railLabelMap[name];
-    railItems.forEach(r => { r.classList.toggle('active', r.textContent.trim() === railLabel); });
+    railItems.forEach(r => { const on = r.textContent.trim() === railLabel; r.classList.toggle('active', on); if (on) r.setAttribute('aria-current', 'page'); else r.removeAttribute('aria-current'); });
   }
 
   const gate = document.getElementById('gate');
@@ -488,6 +531,17 @@
   if (gateBtn) gateBtn.addEventListener('click', () => { gate.style.display = 'none'; });
   tabs.forEach(t => t.addEventListener('click', () => switchTo(t.dataset.tab)));
   railItems.forEach(r => r.addEventListener('click', () => { if (r.dataset.view) switchTo(r.dataset.view); }));
+
+  // Keyboard accessibility for non-native interactive elements (tabs, rail items, clickable results).
+  function keyActivate(el) {
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); el.click(); }
+    });
+  }
+  tabs.forEach(keyActivate);
+  railItems.forEach(r => { if (r.dataset.view) { r.setAttribute('role', 'button'); r.setAttribute('tabindex', '0'); keyActivate(r); } });
+  document.querySelectorAll('.result[onclick]').forEach(res => { res.setAttribute('role', 'button'); res.setAttribute('tabindex', '0'); keyActivate(res); });
+  if (gateBtn) gateBtn.focus();
 </script>
 </body>
 </html>
