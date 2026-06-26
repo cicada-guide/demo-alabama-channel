@@ -79,7 +79,7 @@
   .btn-secondary { background: var(--surface); color: var(--text); border: 1.5px solid var(--border); border-radius: 10px; padding: 0 14px; height: 40px; font-weight: 600; font-size: 12.5px; cursor: pointer; }
   .btn-secondary:hover { background: var(--field); border-color: #CBD6E8; }
   .filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .filter-chip { background: var(--field); border: 1.5px solid transparent; border-radius: 999px; padding: 6px 13px; font-size: 12.5px; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .filter-chip { background: var(--field); border: 1.5px solid transparent; border-radius: 999px; padding: 10px 15px; font-size: 12.5px; font-weight: 600; color: var(--muted); cursor: pointer; }
   .filter-chip:hover { color: var(--text); }
   .filter-chip.active { background: var(--primary-soft); color: var(--primary-dark); border-color: var(--primary); }
 
@@ -541,6 +541,18 @@
   tabs.forEach(keyActivate);
   railItems.forEach(r => { if (r.dataset.view) { r.setAttribute('role', 'button'); r.setAttribute('tabindex', '0'); keyActivate(r); } });
   document.querySelectorAll('.result[onclick]').forEach(res => { res.setAttribute('role', 'button'); res.setAttribute('tabindex', '0'); keyActivate(res); });
+
+  // Filter chips: make them real toggle buttons (focusable, keyboard-operable, announced).
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.setAttribute('role', 'button');
+    chip.setAttribute('tabindex', '0');
+    chip.setAttribute('aria-pressed', chip.classList.contains('active') ? 'true' : 'false');
+    chip.addEventListener('click', () => {
+      const on = chip.classList.toggle('active');
+      chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    keyActivate(chip);
+  });
   if (gateBtn) gateBtn.focus();
 </script>
 </body>
