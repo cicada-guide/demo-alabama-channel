@@ -99,7 +99,7 @@
   .result:hover { box-shadow: 0 4px 16px rgba(20,34,58,0.08); border-color: #CBD6E8; }
   .result:last-child { margin-bottom: 0; }
   .result-actions { position: absolute; top: 18px; right: 18px; display: none; gap: 8px; }
-  .result:hover .result-actions { display: flex; }
+  .result:hover .result-actions, .result:focus-within .result-actions { display: flex; }
   .result-actions .btn-secondary, .result-actions .btn-primary { height: 34px; padding: 0 14px; font-size: 12.5px; border-radius: 10px; }
   .result-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; gap: 12px; }
   .result-title { font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
@@ -326,7 +326,7 @@
         </div>
       </div>
 
-      <div class="result">
+      <div class="result" onclick="switchTo('transcript')">
         <div class="result-actions">
           <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
           <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');">Open clip</button>
@@ -345,7 +345,7 @@
         </div>
       </div>
 
-      <div class="result">
+      <div class="result" onclick="switchTo('transcript')">
         <div class="result-actions">
           <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
           <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');">Open clip</button>
@@ -363,7 +363,7 @@
         </div>
       </div>
 
-      <div class="result">
+      <div class="result" onclick="switchTo('transcript')">
         <div class="result-actions">
           <button class="btn-secondary" onclick="event.stopPropagation();">Copy citation</button>
           <button class="btn-primary" onclick="event.stopPropagation();switchTo('transcript');">Open clip</button>
